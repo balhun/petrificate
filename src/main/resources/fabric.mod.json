@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "petrificate",
+	"version": "${version}",
+	"name": "Petrificate",
+	"description": "Implements the Petrification Weapon from Dr. Stone along with enchants for it",
+	"authors": [
+		"Balázs Hunor"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/petrificate/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.hunor.petrificate.Petrificate"
+		],
+		"client": [
+			"com.hunor.petrificate.PetrificateClient"
+		],
+		"fabric-datagen": [
+			"com.hunor.petrificate.PetrificateDataGenerator"
+		]
+	},
+	"mixins": [
+		"petrificate.mixins.json",
+		{
+			"config": "petrificate.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
