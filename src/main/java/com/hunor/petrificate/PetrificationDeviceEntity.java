@@ -1,17 +1,18 @@
 package com.hunor.petrificate;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class PetrificationDeviceEntity extends ThrownItemEntity {
+    ServerPlayerEntity deviceOwner = null;
 
     public PetrificationDeviceEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
@@ -32,17 +33,21 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+    protected void onCollision(HitResult hitResult) {
+        if (!this.getWorld().isClient) {
+            Entity owner = this.getOwner();
+            // Drop the item at the collision point
+            if (owner instanceof ServerPlayerEntity player) {
+                deviceOwner = player;
+            }
 
-        Entity entity = entityHitResult.getEntity();
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), 4);
-        getDefaultItem();
-    }
+            // Start the expanding effect
+            this.getWorld().spawnEntity(new PetrificationWaveEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), deviceOwner));
 
-    @Override
-    protected void onBlockCollision(BlockState state) {
-        super.onBlockCollision(state);
-        getDefaultItem();
+            // Remove the projectile
+            this.discard();
+        }
+
+        super.onCollision(hitResult);
     }
 }

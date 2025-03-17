@@ -15,7 +15,14 @@ public class Petrificate implements ModInitializer {
 			Registries.ENTITY_TYPE,
 			Identifier.of(MOD_ID, "petrification_weapon"),
 			EntityType.Builder.<PetrificationDeviceEntity>create(PetrificationDeviceEntity::new, SpawnGroup.MISC)
-					.dimensions(0.25f, 0.25f) // Adjust entity size if needed
+					.dimensions(0.15f, 0.15f)
+					.build());
+
+	public static final EntityType<PetrificationDeviceEntity> PETRIFICATION_WAVE = Registry.register(
+			Registries.ENTITY_TYPE,
+			Identifier.of(MOD_ID, "petrification_weapon"),
+			EntityType.Builder.<PetrificationDeviceEntity>create(PetrificationDeviceEntity::new, SpawnGroup.MISC)
+					.dimensions(0.5f, 0.5f)
 					.build());
 
 	@Override

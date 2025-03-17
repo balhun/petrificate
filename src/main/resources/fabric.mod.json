@@ -3,7 +3,7 @@
 	"id": "petrificate",
 	"version": "${version}",
 	"name": "Petrificate",
-	"description": "Implements the Petrification Weapon from Dr. Stone along with enchants for it",
+	"description": "Implements the Petrification Weapon from Dr. Stone along with other cool items for it.",
 	"authors": [
 		"Balázs Hunor"
 	],
