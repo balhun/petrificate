@@ -8,6 +8,9 @@ import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
@@ -19,11 +22,11 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
     }
 
     public PetrificationDeviceEntity(World world, LivingEntity owner) {
-        super(Petrificate.PETRIFICATION_WEAPON, owner, world);
+        super(Petrificate.PETRIFICATION_DEVICE, owner, world);
     }
 
     public PetrificationDeviceEntity(World world, double x, double y, double z) {
-        super(Petrificate.PETRIFICATION_WEAPON, x, y, z, world);
+        super(Petrificate.PETRIFICATION_DEVICE, x, y, z, world);
     }
 
 
@@ -40,6 +43,7 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
             if (owner instanceof ServerPlayerEntity player) {
                 deviceOwner = player;
             }
+
 
             // Start the expanding effect
             this.getWorld().spawnEntity(new PetrificationWaveEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), deviceOwner));

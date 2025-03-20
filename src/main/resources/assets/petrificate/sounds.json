@@ -1,0 +1,9 @@
+{
+  "petrification_device_sound1": {
+    "subtitle": "Petrification Device Activated",
+    "sounds": [
+      "petrificate:petrification_device_sound1"
+    ],
+    "attenuation_distance": 64.0
+  }
+}
