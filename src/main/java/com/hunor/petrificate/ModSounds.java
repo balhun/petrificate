@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 public class ModSounds {
 
     public static final SoundEvent petrification_device_sound = registerSoundEvent("petrification_device_sound");
+    public static final SoundEvent flight_sound = registerSoundEvent("flight_sound");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(Petrificate.MOD_ID, name);

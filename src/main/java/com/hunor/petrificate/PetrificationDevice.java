@@ -18,9 +18,18 @@ public class PetrificationDevice extends Item {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 1F);
+        if (!world.isClient) {
+            world.playSound(
+                    null,                            // null = minden játékos hallja
+                    user.getX(), user.getY(), user.getZ(), // pontos pozíció
+                    ModSounds.flight_sound,   // a hang
+                    SoundCategory.HOSTILE,           // a játékosok hallják
+                    0.25F,                            // hangerő, minimum 1.0
+                    1.0F                             // pitch
+            );
+        }
 
-        user.getItemCooldownManager().set(this, 20);
+        user.getItemCooldownManager().set(this, 20); // 300/20 = 15s
 
         if (!world.isClient) {
             PetrificationDeviceEntity petrificationDeviceEntity = new PetrificationDeviceEntity(world, user);

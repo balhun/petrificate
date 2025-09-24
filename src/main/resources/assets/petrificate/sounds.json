@@ -1,10 +1,23 @@
 {
   "petrification_device_sound1": {
-    "subtitle": "Petrification Device Activated",
+    "subtitle": "Medusa Activated",
+    "sounds": [
+      "petrificate:petrification_device_sound1"
+    ],
+    "attenuation_distance": 64.0
+  },
+  "petrification_device_sound": {
+    "subtitle": "Medusa Activated",
     "sounds": [
       "petrificate:petrification_device_sound"
     ],
     "attenuation_distance": 64.0
+  },
+  "flight_sound": {
+    "subtitle": "Medusa in Flight",
+    "sounds": [
+      "petrificate:flight_sound"
+    ]
   },
   "fantasyysscience": {
     "sounds": [

@@ -15,6 +15,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.joml.Vector3f;
@@ -48,13 +49,23 @@ public class PetrificationWaveEntity extends Entity {
         if (!(getWorld() instanceof ServerWorld serverWorld)) return;
 
         if (ticksAlive == 1) {
-            playSound(ModSounds.petrification_device_sound, 2.0f, 1.0f);
+            this.getWorld().playSound(
+                    null,                          // ha null, minden játékos hallja
+                    this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
+                    ModSounds.petrification_device_sound,  // a te sound event-ed
+                    SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
+                    4.0f,                          // hangerő
+                    1.0f                           // pitch
+            );
+
         }
 
+        if (ticksAlive == 18) returnDevice();
 
         if (ticksAlive >= 18 && ticksAlive < 30) {
             radius += 0.1f;
             spawnParticles(serverWorld, new Vector3f(0f, 0.5f, 0f), 1.0f, 200); // Dark green phase
+            petrifyEntities(serverWorld);
         }
 
         if (ticksAlive >= 30) {
@@ -64,7 +75,6 @@ public class PetrificationWaveEntity extends Entity {
         }
 
         if (ticksAlive > 50) {
-            returnDevice();
             discard();
         }
     }

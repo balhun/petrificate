@@ -1,20 +1,13 @@
 package com.hunor.petrificate;
 
-import com.hunor.petrificate.ModItems;
-import com.hunor.petrificate.PetrificationWaveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class PetrificationDeviceEntity extends ThrownItemEntity {
@@ -32,10 +25,28 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
         super(Petrificate.PETRIFICATION_DEVICE, x, y, z, world);
     }
 
-
     @Override
     protected Item getDefaultItem() {
         return ModItems.PETRIFICATION_DEVICE;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.getWorld().isClient) {
+            // minden tickben növeljük az "életkorát"
+            // age alapból van a ProjectileEntity-ben is
+            if (this.age % 60 == 0) {
+                this.getWorld().playSound(
+                        null,                  // ha null, mindenki hallja
+                        this.getX(), this.getY(), this.getZ(),    // hely, ahonnan szól
+                        ModSounds.flight_sound, // ide jön a saját hangod
+                        SoundCategory.HOSTILE, // vagy AMBIENT / HOSTILE, ahova szeretnéd
+                        1f,                  // hangerő
+                        1.0f                   // pitch
+                );
+            }
+        }
     }
 
     @Override
