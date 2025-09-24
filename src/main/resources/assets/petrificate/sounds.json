@@ -2,8 +2,16 @@
   "petrification_device_sound1": {
     "subtitle": "Petrification Device Activated",
     "sounds": [
-      "petrificate:petrification_device_sound1"
+      "petrificate:petrification_device_sound"
     ],
     "attenuation_distance": 64.0
+  },
+  "fantasyysscience": {
+    "sounds": [
+      {
+        "name": "petrificate:fantasyysscience",
+        "stream": true
+      }
+    ]
   }
 }

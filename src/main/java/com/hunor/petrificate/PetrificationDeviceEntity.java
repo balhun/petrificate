@@ -1,5 +1,7 @@
 package com.hunor.petrificate;
 
+import com.hunor.petrificate.ModItems;
+import com.hunor.petrificate.PetrificationWaveEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -12,6 +14,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class PetrificationDeviceEntity extends ThrownItemEntity {
@@ -38,20 +41,14 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         if (!this.getWorld().isClient) {
-            Entity owner = this.getOwner();
-            // Drop the item at the collision point
-            if (owner instanceof ServerPlayerEntity player) {
-                deviceOwner = player;
-            }
-
-
-            // Start the expanding effect
-            this.getWorld().spawnEntity(new PetrificationWaveEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), deviceOwner));
-
-            // Remove the projectile
-            this.discard();
+            PetrificationWaveEntity wave = new PetrificationWaveEntity(
+                    this.getWorld(),
+                    this.getX(), this.getY(), this.getZ(),
+                    getOwner() instanceof ServerPlayerEntity ? (ServerPlayerEntity) getOwner() : null
+            );
+            wave.setRadius(0.1f); // Start very small
+            this.getWorld().spawnEntity(wave);
         }
-
-        super.onCollision(hitResult);
+        this.discard();
     }
 }
