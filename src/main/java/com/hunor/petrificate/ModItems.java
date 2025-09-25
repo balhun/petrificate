@@ -23,6 +23,10 @@ public class ModItems {
     }
 
     public static final Item PETRIFICATION_DEVICE = new PetrificationDevice(new Item.Settings().maxCount(1));
+    public static final Item PETRIFICATION_DEVICE_BROKEN = new Item(new Item.Settings().maxCount(1));
+    public static final Item PETRIFICATION_DEVICE_DRAINED = new Item(new Item.Settings().maxCount(1));
+
+
     public static final RegistryKey<ItemGroup> PETRIFICATE_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(Petrificate.MOD_ID, "item_group"));
     public static final ItemGroup PETRIFICATE_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.PETRIFICATION_DEVICE))
@@ -31,9 +35,15 @@ public class ModItems {
 
     public static void initialize() {
         Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device"), PETRIFICATION_DEVICE);
+        Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device_broken"), PETRIFICATION_DEVICE_BROKEN);
+        Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device_drained"), PETRIFICATION_DEVICE_DRAINED);
+
+
         Registry.register(Registries.ITEM_GROUP, PETRIFICATE_GROUP_KEY, PETRIFICATE_GROUP);
         ItemGroupEvents.modifyEntriesEvent(PETRIFICATE_GROUP_KEY).register(itemGroup -> {
             itemGroup.add(ModItems.PETRIFICATION_DEVICE);
+            itemGroup.add(ModItems.PETRIFICATION_DEVICE_BROKEN);
+            itemGroup.add(ModItems.PETRIFICATION_DEVICE_DRAINED);
         });
     }
 }

@@ -41,6 +41,12 @@ public class PetrificationWaveEntity extends Entity {
         this.radius = radius;
     }
 
+    private ItemStack originalStack = ItemStack.EMPTY;
+
+    public void setOriginalStack(ItemStack stack) {
+        this.originalStack = stack.copy();
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -105,12 +111,33 @@ public class PetrificationWaveEntity extends Entity {
         );
 
         for (LivingEntity entity : entities) {
+
             if (entity instanceof AnimalEntity animal) {
                 animal.setAiDisabled(true);
                 entity.setSilent(true);
+
+                /*this.getWorld().playSound(
+                        null,                          // ha null, minden játékos hallja
+                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
+                        ModSounds.petrificating,  // a te sound event-ed
+                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
+                        2.0f,                          // hangerő
+                        1.0f                           // pitch
+                );*/
+
             } else if (entity instanceof MobEntity mob) {
                 mob.setAiDisabled(true);
                 entity.setSilent(true);
+
+                /*this.getWorld().playSound(
+                        null,                          // ha null, minden játékos hallja
+                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
+                        ModSounds.petrificating,  // a te sound event-ed
+                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
+                        2.0f,                          // hangerő
+                        1.0f                           // pitch
+                );*/
+
             } else {
                 entity.damage(getDamageSources().magic(), Float.MAX_VALUE);
             }
@@ -119,8 +146,10 @@ public class PetrificationWaveEntity extends Entity {
 
     private void returnDevice() {
         if (deviceOwner != null && !deviceOwner.isCreative()) {
-            ItemEntity item = new ItemEntity(getWorld(), getX(), getY(), getZ(),
-                    new ItemStack(ModItems.PETRIFICATION_DEVICE));
+            // Növeljük a damage-et
+            originalStack.setDamage(originalStack.getDamage() + 5);
+
+            ItemEntity item = new ItemEntity(getWorld(), getX(), getY(), getZ(), originalStack.copy());
             getWorld().spawnEntity(item);
         }
     }

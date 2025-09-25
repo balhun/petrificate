@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.hit.HitResult;
@@ -28,6 +29,16 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
     @Override
     protected Item getDefaultItem() {
         return ModItems.PETRIFICATION_DEVICE;
+    }
+
+    private ItemStack originalStack = ItemStack.EMPTY;
+
+    public void setOriginalStack(ItemStack stack) {
+        this.originalStack = stack.copy(); // teljes másolat NBT-vel
+    }
+
+    public ItemStack getOriginalStack() {
+        return originalStack;
     }
 
     @Override
@@ -57,6 +68,7 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
                     this.getX(), this.getY(), this.getZ(),
                     getOwner() instanceof ServerPlayerEntity ? (ServerPlayerEntity) getOwner() : null
             );
+            wave.setOriginalStack(this.getOriginalStack());
             wave.setRadius(0.1f); // Start very small
             this.getWorld().spawnEntity(wave);
         }

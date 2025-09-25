@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "petrificate:item/petrification_device"
+    "layer0": "petrificate:item/petrification_device_drained"
   },
   "display": {
     "thirdperson_righthand": {
@@ -24,14 +24,5 @@
       "translation": [0, 2, 0.6],
       "scale": [0.3, 0.3, 0.3]
     }
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "damage": 1.0
-      },
-      "model": "petrificate:item/petrification_device_drained"
-    }
-  ]
-
+  }
 }

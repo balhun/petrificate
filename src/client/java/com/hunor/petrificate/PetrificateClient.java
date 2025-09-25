@@ -16,12 +16,11 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class PetrificateClient implements ClientModInitializer {
-	public static final Identifier MENU_MUSIC = Identifier.of("petrificate", "fantasyvsscience");
-	public static final RegistryEntry<SoundEvent> MENU_MUSIC_EVENT = RegistryEntry.of(SoundEvent.of(MENU_MUSIC));
+	public static final Identifier FANTASY_VS_SCIENCE = Identifier.of("petrificate", "fantasyvsscience");
 
 	@Override
 	public void onInitializeClient() {
-		Registry.register(Registries.SOUND_EVENT, MENU_MUSIC, SoundEvent.of(MENU_MUSIC));
+		Registry.register(Registries.SOUND_EVENT, FANTASY_VS_SCIENCE, SoundEvent.of(FANTASY_VS_SCIENCE));
 
 		EntityRendererRegistry.register(Petrificate.PETRIFICATION_DEVICE, PetrificationDeviceRenderer::new);
 		EntityRendererRegistry.register(Petrificate.PETRIFICATION_WAVE, EmptyEntityRenderer::new);

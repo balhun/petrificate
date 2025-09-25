@@ -19,12 +19,18 @@
       "petrificate:flight_sound"
     ]
   },
-  "fantasyysscience": {
+  "fantasyvsscience": {
     "sounds": [
       {
-        "name": "petrificate:fantasyysscience",
+        "name": "petrificate:fantasyvsscience",
         "stream": true
       }
+    ]
+  },
+  "petrificating": {
+    "subtitle": "Petrificating",
+    "sounds": [
+      "petrificate:petrificating"
     ]
   }
 }

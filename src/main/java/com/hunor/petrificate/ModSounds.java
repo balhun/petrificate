@@ -9,6 +9,7 @@ public class ModSounds {
 
     public static final SoundEvent petrification_device_sound = registerSoundEvent("petrification_device_sound");
     public static final SoundEvent flight_sound = registerSoundEvent("flight_sound");
+    public static final SoundEvent petrificating = registerSoundEvent("petrificating");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(Petrificate.MOD_ID, name);
