@@ -1,5 +1,6 @@
-package com.hunor.petrificate;
+package com.hunor.petrificate.sound;
 
+import com.hunor.petrificate.Petrificate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;

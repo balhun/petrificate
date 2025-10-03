@@ -2,5 +2,7 @@
   "item.petrificate.petrification_device": "Petrification Device",
   "item.petrificate.petrification_device_broken": "Petrification Device Broken",
   "item.petrificate.petrification_device_drained": "Petrification Device Drained",
-  "itemGroup.petrificate": "Petrificate"
+  "itemGroup.petrificate": "Petrificate",
+  "effect.petrificate.petrification": "Petrificaiton",
+  "entity.petrificate.stonestatue": "Stone Statue"
 }

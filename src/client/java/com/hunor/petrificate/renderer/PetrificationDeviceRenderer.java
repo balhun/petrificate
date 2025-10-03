@@ -1,5 +1,6 @@
-package com.hunor.petrificate;
+package com.hunor.petrificate.renderer;
 
+import com.hunor.petrificate.entity.PetrificationDeviceEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,7 +28,7 @@ public class PetrificationDeviceRenderer extends EntityRenderer<PetrificationDev
         matrices.scale(scale, scale, scale);
 
         // Opcionális: lassú pörgés
-        float spin = (entity.age + tickDelta) * 20f;
+        float spin = (entity.age + tickDelta) * 10f;
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(spin));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(spin));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(spin));
@@ -36,8 +37,12 @@ public class PetrificationDeviceRenderer extends EntityRenderer<PetrificationDev
         ItemStack stack = entity.getStack();
         MinecraftClient.getInstance().getItemRenderer().renderItem(
                 stack, ModelTransformationMode.GROUND,
-                light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers,
-                entity.getWorld(), entity.getId()
+                0xF000F0,
+                OverlayTexture.DEFAULT_UV,
+                matrices,
+                vertexConsumers,
+                entity.getWorld(),
+                0
         );
 
         matrices.pop();

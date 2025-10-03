@@ -1,13 +1,17 @@
-package com.hunor.petrificate;
+package com.hunor.petrificate.entity;
 
-import net.minecraft.entity.Entity;
+import com.hunor.petrificate.sound.ModSounds;
+import com.hunor.petrificate.Petrificate;
+import com.hunor.petrificate.item.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
@@ -28,8 +32,9 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.PETRIFICATION_DEVICE;
+        return ModItems.PETRIFICATION_DEVICE_ACTIVATING;
     }
+
 
     private ItemStack originalStack = ItemStack.EMPTY;
 
@@ -45,8 +50,16 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
     public void tick() {
         super.tick();
         if (!this.getWorld().isClient) {
-            // minden tickben növeljük az "életkorát"
-            // age alapból van a ProjectileEntity-ben is
+            // Saját collision check
+            HitResult hitResult = ProjectileUtil.getCollision(this,
+                    this::canHit, // default szűrés
+                    0.0 // expand érték, 0.0 = nincs extra buffer
+            );
+
+            if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
+                this.onCollision(hitResult);
+            }
+
             if (this.age % 60 == 0) {
                 this.getWorld().playSound(
                         null,                  // ha null, mindenki hallja
@@ -72,6 +85,10 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
             wave.setRadius(0.1f); // Start very small
             this.getWorld().spawnEntity(wave);
         }
+
+
+
         this.discard();
     }
+
 }

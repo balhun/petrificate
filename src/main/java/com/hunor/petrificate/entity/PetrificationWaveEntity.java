@@ -1,13 +1,15 @@
-package com.hunor.petrificate;
+package com.hunor.petrificate.entity;
 
-import com.hunor.petrificate.ModItems;
-import com.hunor.petrificate.ModSounds;
+import com.hunor.petrificate.sound.ModSounds;
 import com.hunor.petrificate.Petrificate;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LightBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.joml.Vector3f;
@@ -66,7 +69,18 @@ public class PetrificationWaveEntity extends Entity {
 
         }
 
-        if (ticksAlive == 18) returnDevice();
+        if (ticksAlive == 18) {
+           /* if (!this.getWorld().isClient) {
+                BlockPos pos = this.getBlockPos();
+
+                if (this.getWorld().getBlockState(pos).isAir()) {
+                    this.getWorld().setBlockState(pos, Blocks.LIGHT.getDefaultState().with(LightBlock.LEVEL_15, 10));
+                }
+
+            }*/
+
+            returnDevice();
+        }
 
         if (ticksAlive >= 18 && ticksAlive < 30) {
             radius += 0.1f;
@@ -74,13 +88,17 @@ public class PetrificationWaveEntity extends Entity {
             petrifyEntities(serverWorld);
         }
 
-        if (ticksAlive >= 30) {
+        if (ticksAlive >= 30 && ticksAlive <= 50) {
             radius += 0.1f;
             spawnParticles(serverWorld, new Vector3f(0f, 1f, 0f), 2.0f, 300); // Bright green phase
             petrifyEntities(serverWorld);
         }
 
-        if (ticksAlive > 50) {
+        if (ticksAlive > 120) {
+            /*BlockPos pos = this.getBlockPos();
+            if (this.getWorld().getBlockState(pos).isOf(Blocks.LIGHT)) {
+                this.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+            }*/
             discard();
         }
     }
@@ -112,37 +130,19 @@ public class PetrificationWaveEntity extends Entity {
 
         for (LivingEntity entity : entities) {
 
-            if (entity instanceof AnimalEntity animal) {
-                animal.setAiDisabled(true);
-                entity.setSilent(true);
-
-                /*this.getWorld().playSound(
-                        null,                          // ha null, minden játékos hallja
-                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
-                        ModSounds.petrificating,  // a te sound event-ed
-                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
-                        2.0f,                          // hangerő
-                        1.0f                           // pitch
-                );*/
-
-            } else if (entity instanceof MobEntity mob) {
-                mob.setAiDisabled(true);
-                entity.setSilent(true);
-
-                /*this.getWorld().playSound(
-                        null,                          // ha null, minden játékos hallja
-                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
-                        ModSounds.petrificating,  // a te sound event-ed
-                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
-                        2.0f,                          // hangerő
-                        1.0f                           // pitch
-                );*/
-
-            } else {
-                entity.damage(getDamageSources().magic(), Float.MAX_VALUE);
-            }
+            entity.addStatusEffect(new StatusEffectInstance(
+                    Petrificate.PETRIFICATION_EFFECT,
+                    -1,
+                    0,
+                    false,
+                    false,
+                    false
+            ));
         }
+
     }
+
+
 
     private void returnDevice() {
         if (deviceOwner != null && !deviceOwner.isCreative()) {
