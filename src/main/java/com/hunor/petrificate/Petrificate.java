@@ -2,6 +2,7 @@ package com.hunor.petrificate;
 
 import com.hunor.petrificate.effect.PetrificationEffect;
 import com.hunor.petrificate.entity.PetrificationDeviceEntity;
+import com.hunor.petrificate.entity.RevivalFluidEntity;
 import com.hunor.petrificate.entity.StoneStatueEntity;
 import com.hunor.petrificate.item.ModItems;
 import com.hunor.petrificate.sound.ModSounds;
@@ -43,6 +44,15 @@ public class Petrificate implements ModInitializer {
 	static {
 		PETRIFICATION_EFFECT = Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(MOD_ID, "petrification"), new PetrificationEffect());
 	}
+
+	public static final EntityType<RevivalFluidEntity> REVIVAL_FLUID = Registry.register(
+			Registries.ENTITY_TYPE,
+			Identifier.of(MOD_ID, "revival_fluid"),
+			EntityType.Builder.<RevivalFluidEntity>create(RevivalFluidEntity::new, SpawnGroup.MISC)
+					.dimensions(0.1f, 0.1f)
+					.maxTrackingRange(4)
+					.trackingTickInterval(10)
+					.build());
 
 	@Override
 	public void onInitialize() {

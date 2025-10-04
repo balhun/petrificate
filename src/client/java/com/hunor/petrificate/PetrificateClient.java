@@ -7,6 +7,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
@@ -20,10 +21,12 @@ public class PetrificateClient implements ClientModInitializer {
 		Registry.register(Registries.SOUND_EVENT, FANTASY_VS_SCIENCE, SoundEvent.of(FANTASY_VS_SCIENCE));
 
 		EntityRendererRegistry.register(Petrificate.PETRIFICATION_DEVICE, PetrificationDeviceRenderer::new);
+		EntityRendererRegistry.register(Petrificate.REVIVAL_FLUID, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(Petrificate.PETRIFICATION_WAVE, EmptyEntityRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(StoneStatueModel.STONESTATUE, StoneStatueModel::getTexturedModelData);
 		EntityRendererRegistry.register(Petrificate.STONE_STATUE, StoneStatueRenderer::new);
 
 	}
+
 }

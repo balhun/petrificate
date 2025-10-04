@@ -4,5 +4,6 @@
   "item.petrificate.petrification_device_drained": "Petrification Device Drained",
   "itemGroup.petrificate": "Petrificate",
   "effect.petrificate.petrification": "Petrificaiton",
-  "entity.petrificate.stonestatue": "Stone Statue"
+  "entity.petrificate.stonestatue": "Stone Statue",
+  "item.petrificate.revival_fluid": "Revival Fluid"
 }

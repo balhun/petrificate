@@ -20,7 +20,7 @@ public class PetrificationEffect extends StatusEffect {
 
     @Override
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        if (entity instanceof AnimalEntity animal) {
+       /* if (entity instanceof AnimalEntity animal) {
             animal.setAiDisabled(true);
             entity.setSilent(true);
 
@@ -31,7 +31,7 @@ public class PetrificationEffect extends StatusEffect {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );*/
+                );
 
         } else if (entity instanceof MobEntity mob) {
             mob.setAiDisabled(true);
@@ -44,11 +44,11 @@ public class PetrificationEffect extends StatusEffect {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );*/
+                );
 
         } else {
             entity.damage(entity.getDamageSources().magic(), Float.MAX_VALUE);
-        }
+        }*/
 
         return super.applyUpdateEffect(entity, amplifier);
     }

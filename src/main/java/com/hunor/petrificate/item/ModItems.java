@@ -27,6 +27,7 @@ public class ModItems {
     public static final Item PETRIFICATION_DEVICE_BROKEN = new Item(new Item.Settings().maxCount(1));
     public static final Item PETRIFICATION_DEVICE_DRAINED = new Item(new Item.Settings().maxCount(1));
     public static final Item PETRIFICATION_DEVICE_ACTIVATING = new Item(new Item.Settings().maxCount(1));
+    public static final Item REVIVAL_FLUID = new RevivalFluidItem(new Item.Settings().maxCount(16));
 
 
     public static final RegistryKey<ItemGroup> PETRIFICATE_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(Petrificate.MOD_ID, "item_group"));
@@ -40,6 +41,7 @@ public class ModItems {
         Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device_broken"), PETRIFICATION_DEVICE_BROKEN);
         Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device_drained"), PETRIFICATION_DEVICE_DRAINED);
         Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "petrification_device_activating"), PETRIFICATION_DEVICE_ACTIVATING);
+        Registry.register(Registries.ITEM, Identifier.of(Petrificate.MOD_ID, "revival_fluid"), REVIVAL_FLUID);
 
 
         Registry.register(Registries.ITEM_GROUP, PETRIFICATE_GROUP_KEY, PETRIFICATE_GROUP);
@@ -47,6 +49,7 @@ public class ModItems {
             itemGroup.add(ModItems.PETRIFICATION_DEVICE);
             itemGroup.add(ModItems.PETRIFICATION_DEVICE_BROKEN);
             itemGroup.add(ModItems.PETRIFICATION_DEVICE_DRAINED);
+            itemGroup.add(ModItems.REVIVAL_FLUID);
         });
     }
 }

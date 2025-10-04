@@ -7,11 +7,16 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class StoneStatueEntity extends MobEntity {
+
+    public float headyaw, headpitch;
 
     public StoneStatueEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -124,5 +129,13 @@ public class StoneStatueEntity extends MobEntity {
     @Override
     public boolean startRiding(Entity entity) {
         return false;
+    }
+
+    public void unpetrify() {
+        this.discard();
+
+        // Play sound effect
+        this.getWorld().playSound(null, this.getBlockPos(),
+                SoundEvents.BLOCK_STONE_BREAK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
     }
 }

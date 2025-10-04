@@ -66,9 +66,9 @@ public class StoneStatueModel<T extends StoneStatueEntity> extends SinglePartEnt
 	public void setAngles(StoneStatueEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		//TEST
 
-		long seed = entity.getUuid().getLeastSignificantBits();
+		long seed = (long)(entity.getX() * 10000) ^ (long)(entity.getZ() * 10000);
 		Random random = new Random(seed);
-
+/*
 		// These values will be the same every tick for this entity
 		this.head.yaw = (random.nextFloat() - 0.5f) * (float)Math.PI;
 		this.head.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
@@ -84,7 +84,23 @@ public class StoneStatueModel<T extends StoneStatueEntity> extends SinglePartEnt
 		this.rightLeg.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
 		this.leftLeg.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
 
-		//TEST
+		//TEST*/
+
+		// Fej rotation (a player-től kapott)
+		/*this.head.yaw = entity.getYaw() * ((float)Math.PI / 180F);
+		this.head.pitch = entity.getPitch() * ((float)Math.PI / 180F);
+
+		this.rightArm.pitch = random.nextFloat();
+		this.rightArm.yaw = 0.0f;
+		this.rightArm.roll = 0.0f;
+
+		this.leftArm.pitch = random.nextFloat();
+		this.leftArm.yaw = 0.0f;
+		this.leftArm.roll = 0.0f;
+
+		this.rightLeg.pitch = random.nextFloat();
+		this.leftLeg.pitch = random.nextFloat();*/
+
 	}
 
 	@Override

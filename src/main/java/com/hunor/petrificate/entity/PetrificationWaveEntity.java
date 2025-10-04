@@ -130,14 +130,53 @@ public class PetrificationWaveEntity extends Entity {
 
         for (LivingEntity entity : entities) {
 
-            entity.addStatusEffect(new StatusEffectInstance(
+            /*entity.addStatusEffect(new StatusEffectInstance(
                     Petrificate.PETRIFICATION_EFFECT,
                     -1,
                     0,
                     false,
                     false,
                     false
-            ));
+            ));*/
+
+            if (entity instanceof AnimalEntity animal) {
+                animal.setAiDisabled(true);
+                entity.setSilent(true);
+
+                /*this.getWorld().playSound(
+                        null,                          // ha null, minden játékos hallja
+                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
+                        ModSounds.petrificating,  // a te sound event-ed
+                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
+                        2.0f,                          // hangerő
+                        1.0f                           // pitch
+                );*/
+
+            } else if (entity instanceof MobEntity mob) {
+                mob.setAiDisabled(true);
+                entity.setSilent(true);
+
+                /*this.getWorld().playSound(
+                        null,                          // ha null, minden játékos hallja
+                        this.getX(), this.getY(), this.getZ(), // a pozíció, ahonnan szól
+                        ModSounds.petrificating,  // a te sound event-ed
+                        SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
+                        2.0f,                          // hangerő
+                        1.0f                           // pitch
+                );*/
+
+            } else if (entity instanceof ServerPlayerEntity player) {
+                if (!player.isCreative()) {
+                    StoneStatueEntity stoneStatueEntity = new StoneStatueEntity(Petrificate.STONE_STATUE, this.getWorld());
+                    stoneStatueEntity.setPosition(player.getX(), player.getY(), player.getZ());
+                    stoneStatueEntity.setAngles(player.getYaw(), player.getPitch());
+                    stoneStatueEntity.setHeadYaw(player.getHeadYaw());
+
+                    // Spawnolás
+                    this.getWorld().spawnEntity(stoneStatueEntity);
+                    entity.damage(entity.getDamageSources().magic(), Float.MAX_VALUE);
+                }
+            }
         }
 
     }
