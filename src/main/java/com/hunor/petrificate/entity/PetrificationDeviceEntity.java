@@ -65,7 +65,7 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
                         null,                  // ha null, mindenki hallja
                         this.getX(), this.getY(), this.getZ(),    // hely, ahonnan szól
                         ModSounds.flight_sound, // ide jön a saját hangod
-                        SoundCategory.HOSTILE, // vagy AMBIENT / HOSTILE, ahova szeretnéd
+                        SoundCategory.AMBIENT, // vagy AMBIENT / HOSTILE, ahova szeretnéd
                         1f,                  // hangerő
                         1.0f                   // pitch
                 );

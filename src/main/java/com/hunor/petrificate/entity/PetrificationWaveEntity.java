@@ -137,7 +137,7 @@ public class PetrificationWaveEntity extends Entity {
                     false,
                     false,
                     false
-            ));*/
+            ));
 
             if (entity instanceof AnimalEntity animal) {
                 animal.setAiDisabled(true);
@@ -150,7 +150,7 @@ public class PetrificationWaveEntity extends Entity {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );*/
+                );
 
             } else if (entity instanceof MobEntity mob) {
                 mob.setAiDisabled(true);
@@ -163,16 +163,17 @@ public class PetrificationWaveEntity extends Entity {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );*/
+                );
 
-            } else if (entity instanceof ServerPlayerEntity player) {
+            } else*/
+
+            if (entity instanceof ServerPlayerEntity player) {
                 if (!player.isCreative()) {
                     StoneStatueEntity stoneStatueEntity = new StoneStatueEntity(Petrificate.STONE_STATUE, this.getWorld());
                     stoneStatueEntity.setPosition(player.getX(), player.getY(), player.getZ());
                     stoneStatueEntity.setAngles(player.getYaw(), player.getPitch());
                     stoneStatueEntity.setHeadYaw(player.getHeadYaw());
 
-                    // Spawnolás
                     this.getWorld().spawnEntity(stoneStatueEntity);
                     entity.damage(entity.getDamageSources().magic(), Float.MAX_VALUE);
                 }
@@ -182,10 +183,8 @@ public class PetrificationWaveEntity extends Entity {
     }
 
 
-
     private void returnDevice() {
         if (deviceOwner != null && !deviceOwner.isCreative()) {
-            // Növeljük a damage-et
             originalStack.setDamage(originalStack.getDamage() + 5);
 
             ItemEntity item = new ItemEntity(getWorld(), getX(), getY(), getZ(), originalStack.copy());
@@ -200,4 +199,5 @@ public class PetrificationWaveEntity extends Entity {
     protected void readCustomDataFromNbt(NbtCompound nbt) {}
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {}
+
 }

@@ -16,27 +16,17 @@ import net.minecraft.world.WorldEvents;
 
 public class RevivalFluidEntity extends ThrownItemEntity {
 
-    public RevivalFluidEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
-        super(entityType, world);
-    }
+    public RevivalFluidEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
 
-    public RevivalFluidEntity(World world, LivingEntity owner) {
-        super(Petrificate.REVIVAL_FLUID, owner, world);
-    }
+    public RevivalFluidEntity(World world, LivingEntity owner) { super(Petrificate.REVIVAL_FLUID, owner, world); }
 
-    public RevivalFluidEntity(World world, double x, double y, double z) {
-        super(Petrificate.REVIVAL_FLUID, x, y, z, world);
-    }
+    public RevivalFluidEntity(World world, double x, double y, double z) { super(Petrificate.REVIVAL_FLUID, x, y, z, world); }
 
     @Override
-    protected Item getDefaultItem() {
-        return ModItems.REVIVAL_FLUID;
-    }
+    protected Item getDefaultItem() { return ModItems.REVIVAL_FLUID; }
 
     @Override
-    protected double getGravity() {
-        return 0.05;
-    }
+    protected double getGravity() { return 0.05; }
 
     @Override
     protected void onCollision(HitResult hitResult) {
@@ -44,27 +34,17 @@ public class RevivalFluidEntity extends ThrownItemEntity {
 
         if (!this.getWorld().isClient) {
             this.applySplashEffect();
-
-            // Ez mindig ugyanazt a potion effektet produkálja
             this.getWorld().syncWorldEvent(WorldEvents.SPLASH_POTION_SPLASHED, this.getBlockPos(), 0xFFFFFF);
-
             this.discard();
         }
     }
 
     private void applySplashEffect() {
-        // Define the splash radius (same as splash potions)
         double radius = 4.0;
         Box box = new Box(this.getBlockPos()).expand(radius);
-
-        // Find all StoneStatue entities in radius
         for (StoneStatueEntity statue : this.getWorld().getNonSpectatingEntities(StoneStatueEntity.class, box)) {
             double distanceSquared = this.squaredDistanceTo(statue);
-
-            if (distanceSquared < radius * radius) {
-                // Unpetrify the statue - you'll need to implement this method
-                statue.unpetrify();
-            }
+            if (distanceSquared < radius * radius) statue.unpetrify();
         }
     }
 }

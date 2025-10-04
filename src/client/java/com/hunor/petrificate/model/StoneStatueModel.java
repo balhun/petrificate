@@ -87,9 +87,9 @@ public class StoneStatueModel<T extends StoneStatueEntity> extends SinglePartEnt
 		//TEST*/
 
 		// Fej rotation (a player-től kapott)
-		/*this.head.yaw = entity.getYaw() * ((float)Math.PI / 180F);
-		this.head.pitch = entity.getPitch() * ((float)Math.PI / 180F);
-
+		this.head.yaw = (float) Math.toRadians(netHeadYaw);
+		this.head.pitch = (float) Math.toRadians(headPitch);
+/*
 		this.rightArm.pitch = random.nextFloat();
 		this.rightArm.yaw = 0.0f;
 		this.rightArm.roll = 0.0f;
@@ -109,7 +109,5 @@ public class StoneStatueModel<T extends StoneStatueEntity> extends SinglePartEnt
 	}
 
 	@Override
-	public ModelPart getPart() {
-		return root;
-	}
+	public ModelPart getPart() { return root; }
 }
