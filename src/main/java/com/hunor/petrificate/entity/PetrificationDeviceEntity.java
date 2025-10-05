@@ -86,8 +86,6 @@ public class PetrificationDeviceEntity extends ThrownItemEntity {
             this.getWorld().spawnEntity(wave);
         }
 
-
-
         this.discard();
     }
 

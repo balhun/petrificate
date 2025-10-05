@@ -7,16 +7,14 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class StoneStatueEntity extends MobEntity {
 
-    public float headyaw, headpitch;
+    public float randomAngles = (float)Math.random()*45.0f;
 
     public StoneStatueEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -24,6 +22,7 @@ public class StoneStatueEntity extends MobEntity {
 
     @Override
     public void tick() {
+        //System.out.println("randomAngles = " + randomAngles);
         super.tick();
     }
 
@@ -31,7 +30,7 @@ public class StoneStatueEntity extends MobEntity {
     public static DefaultAttributeContainer.Builder createStoneStatueAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 0.0) // Add this!
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.0)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 100.0)
                 .add(EntityAttributes.GENERIC_ARMOR, 100.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0);
@@ -136,6 +135,7 @@ public class StoneStatueEntity extends MobEntity {
 
         // Play sound effect
         this.getWorld().playSound(null, this.getBlockPos(),
-                SoundEvents.BLOCK_STONE_BREAK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            SoundEvents.BLOCK_STONE_BREAK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
     }
+
 }

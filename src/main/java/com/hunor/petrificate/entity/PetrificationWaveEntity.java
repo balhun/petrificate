@@ -137,7 +137,7 @@ public class PetrificationWaveEntity extends Entity {
                     false,
                     false,
                     false
-            ));
+            ));*/
 
             if (entity instanceof AnimalEntity animal) {
                 animal.setAiDisabled(true);
@@ -150,7 +150,7 @@ public class PetrificationWaveEntity extends Entity {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );
+                );*/
 
             } else if (entity instanceof MobEntity mob) {
                 mob.setAiDisabled(true);
@@ -163,11 +163,9 @@ public class PetrificationWaveEntity extends Entity {
                         SoundCategory.HOSTILE,         // kategória (pl. PLAYERS / AMBIENT / HOSTILE)
                         2.0f,                          // hangerő
                         1.0f                           // pitch
-                );
+                );*/
 
-            } else*/
-
-            if (entity instanceof ServerPlayerEntity player) {
+            } else if (entity instanceof ServerPlayerEntity player) {
                 if (!player.isCreative()) {
                     StoneStatueEntity stoneStatueEntity = new StoneStatueEntity(Petrificate.STONE_STATUE, this.getWorld());
                     stoneStatueEntity.setPosition(player.getX(), player.getY(), player.getZ());
@@ -175,6 +173,8 @@ public class PetrificationWaveEntity extends Entity {
                     stoneStatueEntity.setHeadYaw(player.getHeadYaw());
 
                     this.getWorld().spawnEntity(stoneStatueEntity);
+
+                    System.out.println("SPAWN");
                     entity.damage(entity.getDamageSources().magic(), Float.MAX_VALUE);
                 }
             }

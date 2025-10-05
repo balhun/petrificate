@@ -4,6 +4,7 @@ import com.hunor.petrificate.Petrificate;
 import com.hunor.petrificate.entity.StoneStatueEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -64,43 +65,21 @@ public class StoneStatueModel<T extends StoneStatueEntity> extends SinglePartEnt
 	}
 	@Override
 	public void setAngles(StoneStatueEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		//TEST
 
-		long seed = (long)(entity.getX() * 10000) ^ (long)(entity.getZ() * 10000);
-		Random random = new Random(seed);
-/*
-		// These values will be the same every tick for this entity
-		this.head.yaw = (random.nextFloat() - 0.5f) * (float)Math.PI;
-		this.head.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
-
-		this.rightArm.pitch = (random.nextFloat() - 0.5f) * (float)Math.PI;
-		this.rightArm.yaw = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
-		this.rightArm.roll = (random.nextFloat() - 0.5f) * (float)Math.PI;
-
-		this.leftArm.pitch = (random.nextFloat() - 0.5f) * (float)Math.PI;
-		this.leftArm.yaw = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
-		this.leftArm.roll = (random.nextFloat() - 0.5f) * (float)Math.PI;
-
-		this.rightLeg.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
-		this.leftLeg.pitch = (random.nextFloat() - 0.5f) * 0.5f * (float)Math.PI;
-
-		//TEST*/
-
-		// Fej rotation (a player-től kapott)
 		this.head.yaw = (float) Math.toRadians(netHeadYaw);
 		this.head.pitch = (float) Math.toRadians(headPitch);
-/*
-		this.rightArm.pitch = random.nextFloat();
+
+
+		this.rightArm.pitch = (float) Math.toRadians(entity.randomAngles); //limbSwingAmount * limbSwing; //entity.randomAngles > 0.4f ? (float) (45 * (Math.PI/180)) : (float) (-45 * (Math.PI / 180));
 		this.rightArm.yaw = 0.0f;
 		this.rightArm.roll = 0.0f;
 
-		this.leftArm.pitch = random.nextFloat();
+		this.leftArm.pitch = (float) -Math.toRadians(entity.randomAngles); //-limbSwingAmount * limbSwing;//entity.randomAngles > 0.4f ? (float) (-45 * (Math.PI/180)) : (float) (45 * (Math.PI / 180));
 		this.leftArm.yaw = 0.0f;
 		this.leftArm.roll = 0.0f;
 
-		this.rightLeg.pitch = random.nextFloat();
-		this.leftLeg.pitch = random.nextFloat();*/
-
+		this.rightLeg.pitch = (float) Math.toRadians(entity.randomAngles); //entity.randomAngles > 0.4f ? (float) (45 * (Math.PI/180)) : (float) (-45 * (Math.PI / 180));
+		this.leftLeg.pitch = (float) -Math.toRadians(entity.randomAngles); //entity.randomAngles > 0.4f ? (float) (-45 * (Math.PI/180)) : (float) (45 * (Math.PI / 180));
 	}
 
 	@Override
